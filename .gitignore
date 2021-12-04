@@ -1,0 +1,9 @@
+/*
+!.gitignore
+!/README.md
+!/THIRD-PARTY-NOTICES.md
+!/LICENSE
+!/Runtime
+!/*.jpg
+!/*.json
+!*/*.meta
