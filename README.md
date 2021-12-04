@@ -19,7 +19,7 @@ Please add either [Json.NET for Unity](https://github.com/jilleJr/Newtonsoft.Jso
 
   First add the jilleJr Scoped Registry to your Unity Project settings:
 
-  ![Click on Window, Package Manager. Click the Gear icon, then Advanced Project Settings. In the Project Settings window that opens, fill in the details for the jilleJr scoped registry (follows below). Click Save.](https://github.com/conath/TelemetryDeck-Unity/raw/test-upm/HowToAddJilleJRScopedRegistry.jpg)
+  ![Click on Window, Package Manager. Click the Gear icon, then Advanced Project Settings. In the Project Settings window that opens, fill in the details for the jilleJr scoped registry (follows below). Click Save.](https://user-images.githubusercontent.com/12073163/144713841-042ddc47-2cca-4f31-8020-d6f0aca36153.jpg)
 
   The jilleJr Scoped Registry: Name "Packages from jillejr", URL "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/" and Scopes "jillejr".
 
