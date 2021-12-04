@@ -1,0 +1,22 @@
+{
+    "name": "com.telemetrydeck.unitycsharpclient",
+    "displayName": "TelemetryDeck Unity C# Client",
+    "author": "Christoph Parstorfer",
+    "version": "0.1.0",
+    "unity": "2018.1",
+    "description": "Lightweight Analytics That's Not Evil. \n\nTo find out more, click the \"View Documentation\" link.",
+    "keywords": ["analytics", "telemetry", "privacy"],
+    "category": "Analytics",
+	"scopedRegistries": [
+		{
+			"name": "Packages from jillejr",
+			"url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
+			"scopes": [
+				"jillejr"
+			]
+		}
+	],
+    "dependencies": {
+		"jillejr.newtonsoft.json-for-unity": "13.0.102"
+    }
+}
