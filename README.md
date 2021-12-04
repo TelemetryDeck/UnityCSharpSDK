@@ -6,7 +6,7 @@ Please visit [TelemetryDeck.com](https://telemetrydeck.com/) to learn more.
 
 ## About this repository
 
-This repository contains the TelemetryDeck Unity C# Client Unity Package for Unity Package Manager. For sample code and documentation, please [visit the TelemetryDeck for Unity parent repository](https://github.com/conath/TelemetryDeck-Unity/).
+This repository contains the TelemetryClient for Unity C# projects. You can install TelemetryClient from this repository using Unity Package Manager (instructions below). For sample code and additional documentation, please [visit the TelemetryDeck for Unity development repository](https://github.com/conath/TelemetryDeck-Unity/).
 
 ## Dependencies
 
@@ -70,12 +70,31 @@ You can alternatively edit your Project's `Packages/manifest.json` file directly
 
 ## Installing with Unity Package Manager
 
-TelemetryClient is available with Unity Package Manager. Simply install the [dependencies](#dependencies), then add [this URL](/) to Unity. (TODO is this how it works?)
+TelemetryClient is available with Unity Package Manager. Simply install the [dependencies](#dependencies), then add [the git URL of this repository](https://github.com/conath/TelemetryClient-for-UnityCSharp.git) to Unity:
 
-## Installing (alternative Unity Package)
+  0. Copy [the URL](https://github.com/conath/TelemetryClient-for-UnityCSharp.git)
+  1. Open Unity Package Managager in your project (menu Window => Package Manager)
+  2. Click on the Plus `+` icon in the top left and choose "Add package from git URL…"
+  3. Paste [the URL](https://github.com/conath/TelemetryClient-for-UnityCSharp.git)
+  4. Click "Add"
 
-You may alternatively download the latest [Unity Package release](/releases) and import it into your project.
-Note that you also need to add the Json.NET for Unity or Newtonsoft.JSON dependency to your project - see previous section.
+If you added the [dependencies](#dependencies) correctly, Unity will show "Please wait, installing a GIT package…". The package will appear in the list after it finishes installing.
+
+If you did not add the dependencies correctly, Unity will show a few errors in the Console window:
+
+```log
+[Package Manager Window] Unable to add package [https://github.com/conath/TelemetryClient-for-UnityCSharp.git]:
+  Package com.telemetrydeck.unitycsharpclient@https://github.com/conath/TelemetryClient-for-UnityCSharp.git has invalid dependencies or related test packages:
+    jillejr.newtonsoft.json-for-unity (dependency): Package [jillejr.newtonsoft.json-for-unity@13.0.102] cannot be found
+```
+
+Please follow the instructions in the [**Dependencies** section](#dependencies) to fix this.
+
+## Installing manually from Unity Package
+
+You may alternatively download the latest [Unity Package release](https://github.com/conath/TelemetryClient-for-UnityCSharp/releases) and import it into your project. This is not recommended, as you will not receive updates in Unity. Make sure to watch the releases for this repository to be notified.
+
+The the [dependencies](#dependencies) are required when using the Unity Package method of installing TelemetryClient, however you do not *have to* use Unity Package Manager to do this.
 
 ## License
 
@@ -87,4 +106,4 @@ Of course, attribution is very much appreciated. <3
 
 ## 3rd Party Licenses
 
-TelemetryClient for Unity uses the [Newtonsoft.Json for Unity](https://github.com/jilleJr/Newtonsoft.Json-for-Unity) package (aka Json.Net), which is licensed unter The MIT License.
+TelemetryClient for Unity uses the [Newtonsoft.Json for Unity](https://github.com/jilleJr/Newtonsoft.Json-for-Unity) package (aka Json.NET), which is licensed unter The MIT License.
