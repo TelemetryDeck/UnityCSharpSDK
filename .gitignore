@@ -2,7 +2,7 @@
 !.gitignore
 !/README.md
 !/THIRD-PARTY-NOTICES.md
-!/LICENSE
+!/LICENSE.md
 !/Runtime
 !/*.jpg
 !/*.json

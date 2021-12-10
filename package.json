@@ -1,12 +1,17 @@
 {
-    "name": "com.telemetrydeck.unitycsharpclient",
-    "displayName": "TelemetryDeck Unity C# Client",
-    "author": "Christoph Parstorfer",
+    "name": "com.telemetrydeck.unitycsharpsdk",
+    "displayName": "TelemetryDeck SDK for Unity C#",
+    "author": "TelemetryDeck UG",
     "version": "0.1.0",
     "unity": "2018.1",
-    "description": "Lightweight Analytics That's Not Evil. \n\nTo find out more, click the \"View Documentation\" link.",
+    "description": "Lightweight Analytics That's Not Evil. \n\nThe TelemetryDeck SDK allows you to easily send telemetry signals from Unity.\nSignals can include custom data and session as well as user identifiers, or be completely anonymous.\n\n© 2021 TelemetryDeck UG",
     "keywords": ["analytics", "telemetry", "privacy"],
     "category": "Analytics",
+	"license": "MIT-0",
+	"hideInEditor": false,
+    "documentationUrl": "https://github.com/TelemetryDeck/UnityCSharpSDK/#readme",
+    "changelogUrl": "https://github.com/TelemetryDeck/UnityCSharpSDK/releases",
+    "licensesUrl": "https://github.com/TelemetryDeck/UnityCSharpSDK/blob/main/LICENSE",
 	"scopedRegistries": [
 		{
 			"name": "Packages from jillejr",
@@ -18,5 +23,6 @@
 	],
     "dependencies": {
 		"jillejr.newtonsoft.json-for-unity": "13.0.102"
-    }
+    },
+    "type": "library"
 }
