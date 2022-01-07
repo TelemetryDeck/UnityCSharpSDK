@@ -53,6 +53,13 @@ namespace TelemetryClient
             }
         }
 
+        /// <summary>
+        /// Returns <c>true</c> if the TelemetryManager has been 
+        /// <see cref="Initialize(TelemetryManagerConfiguration)">initialized</see> correctly,
+        /// <c>false</c> otherwise. <br/>
+        /// </summary>
+        public static bool IsInitialized => Instance != null;
+
         /// Change the default user identifier sent with each signal.
         ///
         /// Instead of specifying a user identifier with each `send` call, you can set your user's name/email/identifier here and
