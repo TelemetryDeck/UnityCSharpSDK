@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Debug = UnityEngine.Debug;
 
 namespace TelemetryClient
 {
@@ -12,7 +11,7 @@ namespace TelemetryClient
     /// Use an instance of `TelemetryManagerConfiguration` to configure this at initialization and during its lifetime.
     public class TelemetryManager
     {
-        internal const string TelemetryClientVersion = "UnityCSharpClient 1.1.5";
+        internal const string TelemetryClientVersion = "UnityCSharpClient 1.1.6";
 
         private static InvalidOperationException NotInitializedException
         {
