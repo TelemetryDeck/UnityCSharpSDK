@@ -92,7 +92,8 @@ namespace TelemetryClient
                         clientUser = new string(job.userHash.ToArray()),
                         payload = payload.ToMultiValueDimension(),
                         receivedAt = DateTime.Now,
-                        sessionID = configuration.SessionId.ToString()
+                        sessionID = configuration.SessionId.ToString(),
+                        isTestMode = configuration.IsTestMode ? "true" : "false"
                     };
 
                     if (configuration.showDebugLogs)

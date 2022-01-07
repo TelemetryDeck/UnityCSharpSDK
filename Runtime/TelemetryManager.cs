@@ -80,22 +80,31 @@ namespace TelemetryClient
             configuration.SessionId = Guid.NewGuid();
         }
 
+        /// <summary>
+        /// Sends a Signal to TelemetryDeck, to record that an event has occurred. <br/>
+        /// If you specify a user identifier here, it will take precedence over
+        /// the default user identifier specified in the <see cref="TelemetryManagerConfiguration"/>.
+        /// If you specify a payload, it will be sent in addition to the default payload which includes OS Version, App Version, and more.
+        /// </summary>
+        /// <param name="signalType">Name of the event that occurred</param>
+        /// <param name="clientUser">Optional: user identifier to send instead of the one from the <c>TelemetryManagerConfiguration</c></param>
+        /// <param name="additionalPayload">Optional: additional key-value pairs to be sent with the signal</param>
         public static void SendSignal(TelemetrySignalType signalType, string clientUser = null, AdditionalPayload additionalPayload = null)
         {
             Instance.Send(signalType, clientUser, additionalPayload);
         }
 
+        /// <summary>
+        /// Sends a Signal to TelemetryDeck, to record that an event has occurred. <br/>
+        /// If you specify a user identifier here, it will take precedence over
+        /// the default user identifier specified in the <see cref="TelemetryManagerConfiguration"/>.
+        /// If you specify a payload, it will be sent in addition to the default payload which includes OS Version, App Version, and more.
+        /// </summary>
+        /// <param name="signalType">Name of the event that occurred</param>
+        /// <param name="clientUser">Optional: user identifier to send instead of the one from the <c>TelemetryManagerConfiguration</c></param>
+        /// <param name="additionalPayload">Optional: additional key-value pairs to be sent with the signal</param>
         public void Send(TelemetrySignalType signalType, string clientUser = null, AdditionalPayload additionalPayload = null)
         {
-#if UNITY_EDITOR || DEBUG
-            /// To send, or not to send telemetry in DEBUG mode, that is the question. (William Shakespeare, probably)
-            if (configuration.sendSignalsInEditorAndDebug == false)
-            {
-                Debug.Log($"[Telemetry] Debug is enabled, signal with type {signalType} will not be sent to server.");
-                return;
-            }
-#endif
-
             signalManager.ProcessSignal(configuration, signalType, clientUser, additionalPayload);
         }
     }

@@ -52,17 +52,54 @@ namespace TelemetryClient
             }
         }
 
-        /// If `true`, sends signals even if your scheme's build configuration is set to Debug.
+        /// <summary>
+        /// Superseded by <see cref="IsTestMode"/>.
+        /// If <c>true</c>, sends signals even if your scheme's build configuration is set to Debug.
         ///
         /// Defaults to false, which only sends signals if not running in Unity Editor, 
         /// and if your build configuration is not set to Debug build.
+        /// </summary>
+        [Obsolete("Please use the IsTestMode property instead.", error: true)]
         public bool sendSignalsInEditorAndDebug = false;
+
+        /// <summary>
+        /// If <c>true</c>, marks signals sent to the server as "test mode".
+        /// <br/>
+        /// Defaults to <c>true</c> in the Unity Editor and
+        /// if your build configuration is set to Debug build.
+        /// Defaults to <c>false</c> otherwise.
+        /// <br/>
+        /// You may set this property to override the default behaviour.
+        /// </summary>
+        public bool IsTestMode
+        {
+            get
+            {
+                if (_testModeOverride.HasValue)
+                {
+                    return (bool)_testModeOverride;
+                }
+                else
+                {
+#if UNITY_EDITOR || DEBUG
+                    return true;
+#else
+                    return false;
+#endif
+                }
+            }
+            set
+            {
+                _testModeOverride = value;
+            }
+        }
+        private bool? _testModeOverride = null;
 
         /// Log the current status to the signal cache to the console.
         public bool showDebugLogs = false;
 
         /// <summary>
-        /// 
+        /// Creates a new TelemetryManagerConfiguration.
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="baseUrl">The domain to send signals to. Defaults to the default Telemetry API server.</param>
