@@ -57,7 +57,23 @@ namespace TelemetryClient
         /// <see cref="Initialize(TelemetryManagerConfiguration)">initialized</see> correctly,
         /// <c>false</c> otherwise. <br/>
         /// </summary>
-        public static bool IsInitialized => Instance != null;
+        public static bool IsInitialized => _instance != null;
+
+        /// <summary>
+        /// Shuts down the SDK and deinitializes the current <c>TelemetryManager</c>.
+        /// 
+        /// Once called, you must call <see cref="Initialize(TelemetryManagerConfiguration)"/> again before sending additional signals.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">If the SDK was not initialized.</exception>
+        public static void Terminate()
+        {
+            if (_instance == null)
+            {
+                throw NotInitializedException;
+            }
+            _instance.signalManager.Terminate();
+            _instance = null;
+        }
 
         /// Change the default user identifier sent with each signal.
         ///
