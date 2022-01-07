@@ -9,12 +9,37 @@ namespace TelemetryClient
     [Serializable]
     internal struct SignalPostBody
     {
+        /// <summary>
+        /// When was this signal generated
+        /// </summary>
         public DateTime receivedAt;
+        /// <summary>
+        /// The App ID for this signal
+        /// </summary>
         public Guid appID;
+        /// <summary>
+        /// A user identifier. This should be hashed on the client, and will be hashed + salted again
+        /// on the server to break any connection to personally identifiable data.
+        /// </summary>
         public string clientUser;
+        /// <summary>
+        /// A randomly generated session identifier. Should remain the same over the course of the session.
+        /// </summary>
         public string sessionID;
+        /// <summary>
+        /// A name that describes the event that triggered the signal.
+        /// </summary>
         public string type;
+        /// <summary>
+        /// Tags in the form "key:value" to be attached to the signal.
+        /// </summary>
         public string[] payload;
+        /// <summary>
+        /// If <c>"true"</c>, marks the signal as a testing signal and
+        /// shows it in a dedicated test mode UI in the Telemetry Viewer.
+        /// If <c>"false"</c>, it is treated as a regular signal.
+        /// </summary>
+        public string isTestMode;
     }
 
     [Serializable]

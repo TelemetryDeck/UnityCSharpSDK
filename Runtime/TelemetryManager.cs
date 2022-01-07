@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Debug = UnityEngine.Debug;
 
 namespace TelemetryClient
 {
@@ -12,7 +11,7 @@ namespace TelemetryClient
     /// Use an instance of `TelemetryManagerConfiguration` to configure this at initialization and during its lifetime.
     public class TelemetryManager
     {
-        internal const string TelemetryClientVersion = "UnityCSharpClient 1.1.5";
+        internal const string TelemetryClientVersion = "UnityCSharpClient 1.1.6";
 
         private static InvalidOperationException NotInitializedException
         {
@@ -53,6 +52,29 @@ namespace TelemetryClient
             }
         }
 
+        /// <summary>
+        /// Returns <c>true</c> if the TelemetryManager has been 
+        /// <see cref="Initialize(TelemetryManagerConfiguration)">initialized</see> correctly,
+        /// <c>false</c> otherwise. <br/>
+        /// </summary>
+        public static bool IsInitialized => _instance != null;
+
+        /// <summary>
+        /// Shuts down the SDK and deinitializes the current <c>TelemetryManager</c>.
+        /// 
+        /// Once called, you must call <see cref="Initialize(TelemetryManagerConfiguration)"/> again before sending additional signals.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">If the SDK was not initialized.</exception>
+        public static void Terminate()
+        {
+            if (_instance == null)
+            {
+                throw NotInitializedException;
+            }
+            _instance.signalManager.Terminate();
+            _instance = null;
+        }
+
         /// Change the default user identifier sent with each signal.
         ///
         /// Instead of specifying a user identifier with each `send` call, you can set your user's name/email/identifier here and
@@ -73,22 +95,31 @@ namespace TelemetryClient
             configuration.SessionId = Guid.NewGuid();
         }
 
+        /// <summary>
+        /// Sends a Signal to TelemetryDeck, to record that an event has occurred. <br/>
+        /// If you specify a user identifier here, it will take precedence over
+        /// the default user identifier specified in the <see cref="TelemetryManagerConfiguration"/>.
+        /// If you specify a payload, it will be sent in addition to the default payload which includes OS Version, App Version, and more.
+        /// </summary>
+        /// <param name="signalType">Name of the event that occurred</param>
+        /// <param name="clientUser">Optional: user identifier to send instead of the one from the <c>TelemetryManagerConfiguration</c></param>
+        /// <param name="additionalPayload">Optional: additional key-value pairs to be sent with the signal</param>
         public static void SendSignal(TelemetrySignalType signalType, string clientUser = null, AdditionalPayload additionalPayload = null)
         {
             Instance.Send(signalType, clientUser, additionalPayload);
         }
 
+        /// <summary>
+        /// Sends a Signal to TelemetryDeck, to record that an event has occurred. <br/>
+        /// If you specify a user identifier here, it will take precedence over
+        /// the default user identifier specified in the <see cref="TelemetryManagerConfiguration"/>.
+        /// If you specify a payload, it will be sent in addition to the default payload which includes OS Version, App Version, and more.
+        /// </summary>
+        /// <param name="signalType">Name of the event that occurred</param>
+        /// <param name="clientUser">Optional: user identifier to send instead of the one from the <c>TelemetryManagerConfiguration</c></param>
+        /// <param name="additionalPayload">Optional: additional key-value pairs to be sent with the signal</param>
         public void Send(TelemetrySignalType signalType, string clientUser = null, AdditionalPayload additionalPayload = null)
         {
-#if UNITY_EDITOR || DEBUG
-            /// To send, or not to send telemetry in DEBUG mode, that is the question. (William Shakespeare, probably)
-            if (configuration.sendSignalsInEditorAndDebug == false)
-            {
-                Debug.Log($"[Telemetry] Debug is enabled, signal with type {signalType} will not be sent to server.");
-                return;
-            }
-#endif
-
             signalManager.ProcessSignal(configuration, signalType, clientUser, additionalPayload);
         }
     }

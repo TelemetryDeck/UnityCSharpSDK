@@ -34,6 +34,12 @@ namespace TelemetryClient
             return @this;
         }
 
+        internal void Terminate()
+        {
+            Destroy(gameObject);
+            // signal cache will be backed up in OnDestroy
+        }
+
         /// <summary>
         /// Setup a timer to send the Signals
         /// </summary>
@@ -92,7 +98,8 @@ namespace TelemetryClient
                         clientUser = new string(job.userHash.ToArray()),
                         payload = payload.ToMultiValueDimension(),
                         receivedAt = DateTime.Now,
-                        sessionID = configuration.SessionId.ToString()
+                        sessionID = configuration.SessionId.ToString(),
+                        isTestMode = configuration.IsTestMode ? "true" : "false"
                     };
 
                     if (configuration.showDebugLogs)
@@ -165,13 +172,13 @@ namespace TelemetryClient
         }
 
         /// <summary>
-        /// Before the app terminates, we want to save any pending signals to disk
+        /// Saves any pending signals to disk before the SDK terminates.
         /// </summary>
         private void OnDestroy()
         {
             if (configuration.showDebugLogs)
             {
-                Debug.Log("App will terminate");
+                Debug.Log("Telemetry SDK will terminate");
             }
 
             signalCache.BackupCache();
