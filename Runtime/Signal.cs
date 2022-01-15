@@ -123,8 +123,6 @@ namespace TelemetryClient
 
     static class CommonValues
     {
-        // TODO testflight/appstore equivalent?
-
 #if DEBUG
         public static bool IsDebug => true;
 #else

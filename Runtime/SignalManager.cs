@@ -223,9 +223,10 @@ namespace TelemetryClient
 
         #region Helpers
         /// <summary>
-        /// The default user identifier. If the platform supports it, the identifierForVendor. Otherwise, system version
-        /// and build number (in which case it's strongly recommended to supply an email or UUID or similar identifier for
-        /// your user yourself.
+        /// Returns the default user identifier (see <see cref="TelemetryManagerConfiguration.defaultUser"/>), if set.
+        /// Otherwise, if the platform supports it, returns the system unique identifier. <br/>
+        /// If the platform does not support this, returns a string containing the OS and app version, and logs a warning.
+        /// (in this case it's strongly recommended to supply an email or UUID or similar identifier to <see cref="TelemetryManagerConfiguration"/>).
         /// </summary>
         public string DefaultUserIdentifier
         {
@@ -237,17 +238,22 @@ namespace TelemetryClient
                 }
                 else
                 {
-                    return "TODO";// UIDevice.current.identifierForVendor?.uuidString ?? "unknown user \(SignalPayload.systemVersion) \(SignalPayload.buildNumber)";
+                    // get the identifier; what this actually returns is platform dependent
+                    // for example on Android it returns the md5 of ANDROID_ID; on iOS it returns UIDevice.identifierForVendor.
+                    // see Unity Scripting Reference.
+                    string id = SystemInfo.deviceUniqueIdentifier;
+                    if (id == SystemInfo.unsupportedIdentifier)
+                    {
+                        // unsupported platform
+                        if (configuration.showDebugLogs)
+                            Debug.LogWarning("Device Unique Identifier not available on this platform - Telemetry will not include unique user identifer.");
+                        return $"unknown user {CommonValues.OperatingSystem} {CommonValues.AppVersion}";
+                    }
+                    else
+                    {
+                        return id;
+                    }
                 }
-                // TODO get uuid
-                // else the following
-                /*
-            #if DEBUG
-                Debug.LogWarning("[Telemetry] On this platform, Telemetry can't generate a unique user identifier. It is recommended you supply one yourself. More info: https://telemetrydeck.com/pages/signal-reference.html")
-            #else
-            return "unknown user \(SignalPayload.platform) \(SignalPayload.systemVersion) \(SignalPayload.buildNumber)"
-            #endif
-                */
             }
         }
         #endregion
